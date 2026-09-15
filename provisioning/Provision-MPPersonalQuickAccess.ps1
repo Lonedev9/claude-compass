@@ -39,6 +39,19 @@ Write-Host "Connecting to $SiteUrl ..." -ForegroundColor Cyan
 # usage example above.
 
 # ---------------------------------------------------------------------------
+# 0. Safety check: this script changes list-level item security - make sure
+#    the PnP session is actually connected to the site the operator passed
+#    via -SiteUrl, not some other site left over from an earlier session.
+# ---------------------------------------------------------------------------
+$connectedWeb = Get-PnPWeb -ErrorAction Stop
+$connectedUrl = $connectedWeb.Url.TrimEnd('/')
+$requestedUrl = $SiteUrl.TrimEnd('/')
+if ($connectedUrl -ne $requestedUrl) {
+    throw "Connected PnP session is on '$connectedUrl', but -SiteUrl was '$requestedUrl'. Run Connect-PnPOnline -Url '$requestedUrl' first, or pass the -SiteUrl that matches your current connection. Aborting without making any changes."
+}
+Write-Host "Confirmed: connected to $connectedUrl" -ForegroundColor Green
+
+# ---------------------------------------------------------------------------
 # 1. Create the list (idempotent)
 # ---------------------------------------------------------------------------
 $existingList = Get-PnPList -Identity $ListName -ErrorAction SilentlyContinue
@@ -71,7 +84,7 @@ function Ensure-Field {
     Write-Host "  Added field '$InternalName' ($Type)." -ForegroundColor Green
 }
 
-Ensure-Field -ListTitle $ListName -InternalName "URL"       -DisplayName "URL"       -Type Text -Required
+Ensure-Field -ListTitle $ListName -InternalName "Url"       -DisplayName "URL"       -Type Text -Required
 Ensure-Field -ListTitle $ListName -InternalName "Icon"      -DisplayName "Icon"      -Type Text
 Ensure-Field -ListTitle $ListName -InternalName "SortOrder" -DisplayName "Sort Order" -Type Number
 Ensure-Field -ListTitle $ListName -InternalName "Owner"     -DisplayName "Owner"     -Type User -Required

@@ -71,14 +71,22 @@ Creates the **MP Personal Quick Access** list (SPIntranet's personal,
 self-service Quick Access — max 5 shortcuts per user; entirely separate from
 SPCorporateHub's page-scoped Quick Access, which is untouched) with fields:
 
-| Field | Type |
-|---|---|
-| Title | Single line of text |
-| URL | Text |
-| Icon | Text |
-| SortOrder | Number |
-| Owner | Person |
-| OwnerKey | Text |
+| Field (internal name) | Display name | Type |
+|---|---|---|
+| Title | Title | Single line of text |
+| Url | URL | Text |
+| Icon | Icon | Text |
+| SortOrder | Sort Order | Number |
+| Owner | Owner | Person |
+| OwnerKey | Owner Key | Text |
+
+> The internal name is `Url` (matching `IPersonalQuickAccessItem.Url` and every
+> `Service.ts` reference), not `URL` — SharePoint internal names are
+> case-sensitive on REST/CSOM property access, so a mismatch here would
+> silently break every read/write against this field. If you ever add a
+> field to either list by hand instead of via the script, double-check the
+> internal name it lands on (SharePoint's UI sometimes ignores a typed
+> internal name and auto-generates one) against what `Service.ts` expects.
 
 **Permissions.** The script sets the list's native item-level security
 (`ReadSecurity` / `WriteSecurity` = 2 — "items created by the user") so a user
@@ -104,4 +112,9 @@ writes server-side in addition.
    REST `POST`/`PATCH`/`DELETE` against the Delegation of Authority list is
    rejected with 403.
 3. Re-running either script is safe — both are idempotent (list/field
-   creation is skipped if it already exists).
+   creation is skipped if it already exists, and the Delegation script only
+   breaks role inheritance once; a second run leaves any subscope/item-level
+   permissions you've since added alone rather than resetting them).
+4. Both scripts refuse to run if the active `Connect-PnPOnline` session isn't
+   actually on the `-SiteUrl` you passed, so a stale connection or a typo
+   can't silently apply these changes to the wrong site.

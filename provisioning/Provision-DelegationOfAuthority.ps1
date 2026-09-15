@@ -48,6 +48,21 @@ Write-Host "Connecting to $SiteUrl ..." -ForegroundColor Cyan
 # here so credentials are never embedded in this script.
 
 # ---------------------------------------------------------------------------
+# 0. Safety check: this script breaks role inheritance - make sure the PnP
+#    session is actually connected to the site the operator passed via
+#    -SiteUrl, not some other site left over from an earlier session. A typo
+#    in -SiteUrl with a stale connection would otherwise apply these changes
+#    to the wrong site silently.
+# ---------------------------------------------------------------------------
+$connectedWeb = Get-PnPWeb -ErrorAction Stop
+$connectedUrl = $connectedWeb.Url.TrimEnd('/')
+$requestedUrl = $SiteUrl.TrimEnd('/')
+if ($connectedUrl -ne $requestedUrl) {
+    throw "Connected PnP session is on '$connectedUrl', but -SiteUrl was '$requestedUrl'. Run Connect-PnPOnline -Url '$requestedUrl' first, or pass the -SiteUrl that matches your current connection. Aborting without making any changes."
+}
+Write-Host "Confirmed: connected to $connectedUrl" -ForegroundColor Green
+
+# ---------------------------------------------------------------------------
 # 1. Create the list (idempotent - skips creation if it already exists)
 # ---------------------------------------------------------------------------
 $existingList = Get-PnPList -Identity $ListName -ErrorAction SilentlyContinue
@@ -116,8 +131,17 @@ Ensure-Field -ListTitle $ListName -InternalName "IsActive"               -Displa
 # ---------------------------------------------------------------------------
 # 3. Permissions
 # ---------------------------------------------------------------------------
-Write-Host "Breaking role inheritance on '$ListName'..." -ForegroundColor Green
-Set-PnPList -Identity $ListName -BreakRoleInheritance -CopyRoleAssignments:$false -ClearSubscopes:$true
+$list = Get-PnPList -Identity $ListName -Includes HasUniqueRoleAssignments
+if (-not $list.HasUniqueRoleAssignments) {
+    Write-Host "Breaking role inheritance on '$ListName'..." -ForegroundColor Green
+    Set-PnPList -Identity $ListName -BreakRoleInheritance -CopyRoleAssignments:$false -ClearSubscopes:$true
+} else {
+    # Already broken from a prior run - do NOT re-break with ClearSubscopes:$true,
+    # which would silently wipe any folder/item-level permissions an admin added
+    # since the first run. Re-running this script is safe: it only adds/confirms
+    # the list-level role assignments below, never resets subscopes again.
+    Write-Host "Role inheritance on '$ListName' is already broken - leaving subscope permissions untouched." -ForegroundColor Yellow
+}
 
 $list = Get-PnPList -Identity $ListName
 
