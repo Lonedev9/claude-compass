@@ -1,0 +1,76 @@
+@import '../../../styles/breakpoints.scss';
+
+.services {
+  padding: 16px;
+  min-width: 0;
+
+  @include mp-desktop-up {
+    padding: 24px;
+  }
+}
+
+.title {
+  min-width: 0;
+  margin: 0 0 16px 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+
+  @include mp-tablet-up {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include mp-desktop-up {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include mp-wide-up {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  background: #ffffff;
+  border: 1px solid #e1e1e1;
+  border-radius: 4px;
+  padding: 12px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.icon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+}
+
+.cardBody {
+  min-width: 0;
+}
+
+.cardTitle {
+  min-width: 0;
+  margin: 0 0 4px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cardDescription {
+  min-width: 0;
+  margin: 0;
+  font-size: 13px;
+  color: #605e5c;
+}
+
+.empty {
+  color: #605e5c;
+  font-size: 13px;
+}

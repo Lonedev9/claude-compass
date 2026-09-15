@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "mp-compass-client-side-solution",
+    "id": "28b11bf2-4dbc-4d83-a27a-3d03c00c9167",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "undefined"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "MP Compass - Phase 1 SP-prefixed web parts"
+      },
+      "longDescription": {
+        "default": "MP Compass Phase 1: SPIntranet, SPCorporateHub, SPServices, SPApplications, SPDirectoratePage and SPDelegationDetails web parts."
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "MP Compass Phase 1 Feature",
+        "description": "Installs the Phase 1 SP-prefixed web parts.",
+        "id": "54cb5716-085a-4ebe-85af-c4af44fe1552",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/mp-compass.sppkg"
+  }
+}

@@ -1,0 +1,32 @@
+# Logs and temp
+*.log
+node_modules
+.sass-cache
+.eslintcache
+
+# Build generated files
+dist
+lib
+release
+solution
+temp
+*.sppkg
+coverage
+.yo-rc.json.bak
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env / secrets
+.env
+.env.local

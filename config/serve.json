@@ -1,0 +1,19 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/core-build/serve.schema.json",
+  "port": 4321,
+  "https": true,
+  "serveConfigurations": {
+    "default": {
+      "pageUrl": "https://localhost:5432/workbench",
+      "customActions": {}
+    },
+    "spIntranet": {
+      "pageUrl": "https://localhost:5432/workbench",
+      "customActions": {
+        "6b05079b-9856-44c4-b835-dfa89eb14140": {
+          "location": "ClientSideExtension.ApplicationCustomizer"
+        }
+      }
+    }
+  }
+}

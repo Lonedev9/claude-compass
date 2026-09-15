@@ -1,0 +1,25 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-web-part-manifest.schema.json",
+  "id": "a445ffab-46b8-4614-8384-a382f16cdc90",
+  "alias": "SPDirectoratePageWebPart",
+  "componentType": "WebPart",
+  "version": "*",
+  "manifestVersion": 2,
+  "requiresCustomScript": false,
+  "supportsFullBleed": true,
+  "supportedHosts": ["SharePointWebPart", "TeamsPersonalApp", "TeamsTab", "SharePointFullPage"],
+  "preconfiguredEntries": [
+    {
+      "groupId": "5c03119e-3074-46fd-976b-c60198311f70",
+      "group": { "default": "MP Compass" },
+      "title": { "default": "SP Directorate Page" },
+      "description": { "default": "Phase 1 fork of the directorate page web part (SP-prefixed). Reused per directorate." },
+      "officeFabricIconFontName": "CityNext",
+      "properties": {
+        "pageId": "default",
+        "directorateName": "Directorate",
+        "subtitle": ""
+      }
+    }
+  ]
+}

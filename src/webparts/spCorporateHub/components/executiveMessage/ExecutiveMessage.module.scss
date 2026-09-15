@@ -1,0 +1,43 @@
+@import '../../../../styles/breakpoints.scss';
+
+.executiveMessage {
+  display: flex;
+  gap: 16px;
+  min-width: 0;
+  background: #ffffff;
+  border: 1px solid #e1e1e1;
+  border-radius: 4px;
+  padding: 16px;
+}
+
+.photo {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.body {
+  min-width: 0;
+}
+
+.text {
+  min-width: 0;
+  margin: 0 0 8px 0;
+  font-style: italic;
+}
+
+.byline {
+  display: flex;
+  gap: 8px;
+  min-width: 0;
+}
+
+.name {
+  font-weight: 600;
+}
+
+.execTitle {
+  color: #605e5c;
+}

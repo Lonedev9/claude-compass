@@ -1,0 +1,21 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-web-part-manifest.schema.json",
+  "id": "517aa517-907a-42f0-b24e-d46844ef3a41",
+  "alias": "SPDelegationDetailsWebPart",
+  "componentType": "WebPart",
+  "version": "*",
+  "manifestVersion": 2,
+  "requiresCustomScript": false,
+  "supportsFullBleed": true,
+  "supportedHosts": ["SharePointWebPart", "TeamsPersonalApp", "TeamsTab", "SharePointFullPage"],
+  "preconfiguredEntries": [
+    {
+      "groupId": "5c03119e-3074-46fd-976b-c60198311f70",
+      "group": { "default": "MP Compass" },
+      "title": { "default": "Delegation of Authority Details" },
+      "description": { "default": "Brand-new web part (Phase 1, Task F): renders a single Delegation of Authority (leave-coverage) record from ?delegationId=." },
+      "officeFabricIconFontName": "ContactCard",
+      "properties": {}
+    }
+  ]
+}

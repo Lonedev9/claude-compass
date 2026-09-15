@@ -1,0 +1,21 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "nodeVersion": "18.17.1",
+    "sdksVersions": {
+      "@microsoft/microsoft-graph-client": "3.0.2",
+      "@microsoft/teams-js": "2.19.0"
+    },
+    "version": "1.18.2",
+    "libraryName": "mp-compass",
+    "libraryId": "b6c049a6-6fce-56f0-b1ab-c6a20d8896f8",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "mp-compass",
+    "solutionShortDescription": "MP Compass - Phase 1 (SP-prefixed web parts)",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "webpart"
+  }
+}

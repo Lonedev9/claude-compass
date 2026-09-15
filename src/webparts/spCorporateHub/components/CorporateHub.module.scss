@@ -1,0 +1,64 @@
+@import '../../../styles/breakpoints.scss';
+
+.corporateHub {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  min-width: 0;
+
+  @include mp-desktop-up {
+    padding: 24px;
+  }
+}
+
+.header {
+  min-width: 0;
+}
+
+.title {
+  min-width: 0;
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @include mp-desktop-up {
+    font-size: 28px;
+  }
+}
+
+.subtitle {
+  min-width: 0;
+  margin: 4px 0 0 0;
+  color: #605e5c;
+}
+
+.contentGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+
+  @include mp-desktop-up {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.mainColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+  flex: 2;
+}
+
+.sideColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+  flex: 1;
+}

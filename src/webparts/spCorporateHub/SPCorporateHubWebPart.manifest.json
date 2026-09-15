@@ -1,0 +1,24 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-web-part-manifest.schema.json",
+  "id": "2a74bcdb-4c79-4cb2-af1f-579b272d2efe",
+  "alias": "SPCorporateHubWebPart",
+  "componentType": "WebPart",
+  "version": "*",
+  "manifestVersion": 2,
+  "requiresCustomScript": false,
+  "supportsFullBleed": true,
+  "supportedHosts": ["SharePointWebPart", "TeamsPersonalApp", "TeamsTab", "SharePointFullPage"],
+  "preconfiguredEntries": [
+    {
+      "groupId": "5c03119e-3074-46fd-976b-c60198311f70",
+      "group": { "default": "MP Compass" },
+      "title": { "default": "SP Corporate Hub" },
+      "description": { "default": "Phase 1 fork of the department page web part (SP-prefixed). Reused per department - each instance is fully independent." },
+      "officeFabricIconFontName": "Org",
+      "properties": {
+        "hubTitle": "CORPORATE HUB",
+        "subtitle": "Connecting our people, strategy and organization"
+      }
+    }
+  ]
+}

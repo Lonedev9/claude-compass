@@ -1,0 +1,63 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "sp-intranet-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/spIntranet/SPIntranetWebPart.js",
+          "manifest": "./src/webparts/spIntranet/SPIntranetWebPart.manifest.json"
+        }
+      ]
+    },
+    "sp-corporate-hub-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/spCorporateHub/SPCorporateHubWebPart.js",
+          "manifest": "./src/webparts/spCorporateHub/SPCorporateHubWebPart.manifest.json"
+        }
+      ]
+    },
+    "sp-services-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/spServices/SPServicesWebPart.js",
+          "manifest": "./src/webparts/spServices/SPServicesWebPart.manifest.json"
+        }
+      ]
+    },
+    "sp-applications-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/spApplications/SPApplicationsWebPart.js",
+          "manifest": "./src/webparts/spApplications/SPApplicationsWebPart.manifest.json"
+        }
+      ]
+    },
+    "sp-directorate-page-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/spDirectoratePage/SPDirectoratePageWebPart.js",
+          "manifest": "./src/webparts/spDirectoratePage/SPDirectoratePageWebPart.manifest.json"
+        }
+      ]
+    },
+    "sp-delegation-details-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/spDelegationDetails/SPDelegationDetailsWebPart.js",
+          "manifest": "./src/webparts/spDelegationDetails/SPDelegationDetailsWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "spIntranetStrings": "webparts/spIntranet/loc/{locale}.js",
+    "spCorporateHubStrings": "webparts/spCorporateHub/loc/{locale}.js",
+    "spServicesStrings": "webparts/spServices/loc/{locale}.js",
+    "spApplicationsStrings": "webparts/spApplications/loc/{locale}.js",
+    "spDirectoratePageStrings": "webparts/spDirectoratePage/loc/{locale}.js",
+    "spDelegationDetailsStrings": "webparts/spDelegationDetails/loc/{locale}.js"
+  }
+}

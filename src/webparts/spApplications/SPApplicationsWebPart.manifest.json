@@ -1,0 +1,23 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-web-part-manifest.schema.json",
+  "id": "8d3929ec-4190-4880-b256-68798d81a31c",
+  "alias": "SPApplicationsWebPart",
+  "componentType": "WebPart",
+  "version": "*",
+  "manifestVersion": 2,
+  "requiresCustomScript": false,
+  "supportsFullBleed": true,
+  "supportedHosts": ["SharePointWebPart", "TeamsPersonalApp", "TeamsTab", "SharePointFullPage"],
+  "preconfiguredEntries": [
+    {
+      "groupId": "5c03119e-3074-46fd-976b-c60198311f70",
+      "group": { "default": "MP Compass" },
+      "title": { "default": "SP Applications" },
+      "description": { "default": "Phase 1 fork of the applications web part (SP-prefixed)." },
+      "officeFabricIconFontName": "AppIconDefault",
+      "properties": {
+        "pageId": "default"
+      }
+    }
+  ]
+}

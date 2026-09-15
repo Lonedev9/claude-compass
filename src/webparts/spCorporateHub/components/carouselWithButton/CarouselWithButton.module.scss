@@ -1,0 +1,103 @@
+@import '../../../../styles/breakpoints.scss';
+
+.carousel {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.slideTrack {
+  display: flex;
+  transition: transform 0.3s ease;
+}
+
+.slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  height: 220px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+
+  @include mp-desktop-up {
+    height: 320px;
+  }
+}
+
+.slideContent {
+  min-width: 0;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  padding: 16px;
+  width: 100%;
+}
+
+.slideTitle {
+  min-width: 0;
+  margin: 0 0 4px 0;
+}
+
+.slideDescription {
+  min-width: 0;
+  margin: 0 0 8px 0;
+}
+
+.slideButton {
+  display: inline-block;
+  background: #0078d4;
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.navPrev,
+.navNext {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+.navPrev {
+  left: 8px;
+}
+
+.navNext {
+  right: 8px;
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 0;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: #c8c6c4;
+  cursor: pointer;
+}
+
+.dotActive {
+  background: #0078d4;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}

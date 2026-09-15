@@ -1,0 +1,60 @@
+// Shared responsive tier system (Task B) - used by every SP-prefixed web part.
+// Replaces the scattered, inconsistent @media values found in the pre-Phase-1 web parts.
+//
+// Tiers:
+//   mobile:  < 768px
+//   tablet:  768px - 1023px
+//   desktop: >= 1024px
+//   wide:    >= 1440px
+
+$mp-breakpoint-mobile-max: 767px;
+$mp-breakpoint-tablet-min: 768px;
+$mp-breakpoint-tablet-max: 1023px;
+$mp-breakpoint-desktop-min: 1024px;
+$mp-breakpoint-wide-min: 1440px;
+
+// Mixins - use inside any .module.scss in a SP-prefixed web part:
+//   .card { @include mp-tablet-up { display: flex; } }
+
+@mixin mp-mobile-only {
+  @media (max-width: $mp-breakpoint-mobile-max) {
+    @content;
+  }
+}
+
+@mixin mp-tablet-only {
+  @media (min-width: $mp-breakpoint-tablet-min) and (max-width: $mp-breakpoint-tablet-max) {
+    @content;
+  }
+}
+
+@mixin mp-tablet-up {
+  @media (min-width: $mp-breakpoint-tablet-min) {
+    @content;
+  }
+}
+
+@mixin mp-tablet-down {
+  @media (max-width: $mp-breakpoint-tablet-max) {
+    @content;
+  }
+}
+
+@mixin mp-desktop-up {
+  @media (min-width: $mp-breakpoint-desktop-min) {
+    @content;
+  }
+}
+
+@mixin mp-wide-up {
+  @media (min-width: $mp-breakpoint-wide-min) {
+    @content;
+  }
+}
+
+// Root-cause fix for the letter-by-letter text wrapping seen on narrow widths:
+// any flex/grid child holding text needs min-width: 0, otherwise its intrinsic
+// content width overrides the flex/grid item's computed width.
+@mixin mp-flex-text-child {
+  min-width: 0;
+}

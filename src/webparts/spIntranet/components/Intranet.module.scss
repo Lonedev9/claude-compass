@@ -1,0 +1,323 @@
+@import '../../../styles/breakpoints.scss';
+
+.intranet {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 16px;
+  min-width: 0;
+
+  @include mp-desktop-up {
+    padding: 24px;
+  }
+}
+
+// Render site 1: desktop grid - hidden below tablet in favor of the compact list.
+.sectionsGrid {
+  display: none;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+
+  @include mp-tablet-up {
+    display: grid;
+  }
+
+  @include mp-wide-up {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+// Render site 2: compact stacked list - shown only below tablet.
+.sectionsCompactList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  @include mp-tablet-up {
+    display: none;
+  }
+}
+
+.sectionCard,
+.delegationCard,
+.photoGallerySection,
+.personalQuickAccess {
+  min-width: 0;
+  background: #ffffff;
+  border: 1px solid #e1e1e1;
+  border-radius: 4px;
+  padding: 16px;
+}
+
+.cardTitle {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: 600;
+  min-width: 0;
+}
+
+.cardHeaderRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+  margin-bottom: 8px;
+}
+
+.sectionBody {
+  min-width: 0;
+  margin: 0 0 8px 0;
+  color: #605e5c;
+}
+
+.editLink {
+  background: none;
+  border: none;
+  color: #0078d4;
+  cursor: pointer;
+  padding: 0;
+}
+
+.cardEmpty {
+  color: #605e5c;
+  font-size: 13px;
+}
+
+// ---- Delegation of Authority card (Task F) ----
+.delegationList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.delegationRow {
+  min-width: 0;
+  border-bottom: 1px solid #f3f2f1;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.delegationRowButton {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 0;
+
+  &:hover {
+    background: #f3f2f1;
+  }
+}
+
+.delegationEmployee {
+  min-width: 0;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.delegationDesignation,
+.delegationDates {
+  min-width: 0;
+  font-size: 12px;
+  color: #605e5c;
+}
+
+// ---- Photo Gallery (Task C) ----
+.seeAllLink {
+  flex-shrink: 0;
+  color: #0078d4;
+  text-decoration: none;
+}
+
+.albumGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.albumThumb {
+  min-width: 0;
+  position: relative;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: none;
+
+  img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 4px;
+
+    @include mp-desktop-up {
+      height: 160px;
+    }
+  }
+}
+
+.albumName {
+  display: block;
+  min-width: 0;
+  margin-top: 6px;
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// ---- Lightbox ----
+.lightboxOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.lightboxTrack {
+  width: 80vw;
+  max-width: 900px;
+  overflow: hidden;
+}
+
+.lightboxSlides {
+  display: flex;
+  transition: transform 0.3s ease;
+}
+
+.lightboxSlide {
+  flex: 0 0 100%;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+
+  img {
+    max-width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+  }
+}
+
+.lightboxClose,
+.lightboxPrev,
+.lightboxNext {
+  position: absolute;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 32px;
+  cursor: pointer;
+}
+
+.lightboxClose {
+  top: 16px;
+  right: 24px;
+}
+
+.lightboxPrev {
+  left: 24px;
+}
+
+.lightboxNext {
+  right: 24px;
+}
+
+.lightboxCaption {
+  position: absolute;
+  bottom: 16px;
+  color: #fff;
+  font-size: 14px;
+}
+
+// ---- Personal Quick Access (Task G) ----
+.quickAccessCounter {
+  flex-shrink: 0;
+  font-size: 12px;
+  color: #605e5c;
+}
+
+.personalQuickAccessList {
+  list-style: none;
+  margin: 0 0 8px 0;
+  padding: 0;
+}
+
+.personalQuickAccessRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+  padding: 6px 0;
+}
+
+.quickAccessLinkButton {
+  min-width: 0;
+  flex: 1;
+  text-align: left;
+  background: none;
+  border: none;
+  color: #0078d4;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.quickAccessRemoveButton {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  color: #a19f9d;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.quickAccessAddButton {
+  background: none;
+  border: 1px dashed #a19f9d;
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+  color: #0078d4;
+
+  &:disabled {
+    color: #a19f9d;
+    cursor: not-allowed;
+  }
+}
+
+.quickAccessAddForm {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.quickAccessInput {
+  min-width: 0;
+  padding: 6px 8px;
+  border: 1px solid #a19f9d;
+  border-radius: 4px;
+}
+
+.quickAccessError {
+  color: #a4262c;
+  font-size: 12px;
+}
+
+.quickAccessFormActions {
+  display: flex;
+  gap: 8px;
+}
