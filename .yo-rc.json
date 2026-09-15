@@ -7,7 +7,7 @@
       "@microsoft/microsoft-graph-client": "3.0.2",
       "@microsoft/teams-js": "2.19.0"
     },
-    "version": "1.18.2",
+    "version": "1.20.0",
     "libraryName": "mp-compass",
     "libraryId": "b6c049a6-6fce-56f0-b1ab-c6a20d8896f8",
     "environment": "spo",
