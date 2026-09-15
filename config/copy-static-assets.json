@@ -1,13 +1,12 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/core-build/copy-static-assets.schema.json",
-  "include": [
-    "**/*.jpg",
-    "**/*.jpeg",
-    "**/*.gif",
-    "**/*.png",
-    "**/*.svg",
-    "**/*.json",
-    "**/*.js"
-  ],
-  "exclude": []
+  "includeExtensions": [
+    "jpg",
+    "jpeg",
+    "gif",
+    "png",
+    "svg",
+    "json",
+    "js"
+  ]
 }

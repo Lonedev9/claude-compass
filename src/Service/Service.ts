@@ -34,6 +34,105 @@ const PHOTO_ALBUMS_LIBRARY = '/sites/MPIntranet/Photo Albums';
 const DELEGATION_LIST = 'Delegation of Authority';
 const PERSONAL_QUICK_ACCESS_LIST = 'MP Personal Quick Access';
 
+// ---- Raw SharePoint REST item shapes (as returned by PnPjs items()) -----
+// These describe the wire shape of each list before mapping to the app's
+// own IXxx models below - kept separate so a schema/field-name change only
+// touches one place, and so the mapping functions never need `any`.
+interface IRawListItem {
+  Id: number;
+  Title: string;
+}
+
+interface IRawQuickAccessItem extends IRawListItem {
+  Url: string;
+  Icon: string;
+  SortOrder: number;
+  PageId: string;
+}
+
+interface IRawCarouselItem extends IRawListItem {
+  Description: string;
+  ImageUrl: string;
+  ButtonText: string;
+  ButtonUrl: string;
+  SortOrder: number;
+  PageId: string;
+}
+
+interface IRawHorizontalCard extends IRawListItem {
+  Description: string;
+  IconUrl: string;
+  LinkUrl: string;
+  SortOrder: number;
+  PageId: string;
+}
+
+interface IRawAnnouncement extends IRawListItem {
+  Body: string;
+  PublishDate: string;
+  LinkUrl: string;
+  PageId: string;
+}
+
+interface IRawUpcomingEvent extends IRawListItem {
+  StartDate: string;
+  EndDate: string;
+  Location: string;
+  LinkUrl: string;
+  PageId: string;
+}
+
+interface IRawExecutiveMessage extends IRawListItem {
+  ExecutiveName: string;
+  ExecutiveTitle: string;
+  Message: string;
+  PhotoUrl: string;
+  PageId: string;
+}
+
+interface IRawFile {
+  Name: string;
+  ServerRelativeUrl: string;
+  TimeCreated: string;
+}
+
+interface IRawFolder {
+  Name: string;
+  ServerRelativeUrl: string;
+  TimeLastModified: string;
+}
+
+interface IRawPersonField {
+  Title: string;
+  EMail: string;
+}
+
+interface IRawDelegationRecord extends IRawListItem {
+  Employee?: IRawPersonField;
+  EmployeeName?: string;
+  Designation: string;
+  Department: string;
+  Delegate?: IRawPersonField;
+  DelegateName?: string;
+  DelegateDesignation: string;
+  LeaveFrom: string;
+  LeaveTo: string;
+  DelegationFrom: string;
+  DelegationTo: string;
+  ScopeResponsibilities: string;
+  ContactInformation: string;
+  Status: string;
+  SortOrder: number;
+  IsActive: boolean;
+}
+
+interface IRawPersonalQuickAccessItem extends IRawListItem {
+  Url: string;
+  Icon: string;
+  SortOrder: number;
+  OwnerKey: string;
+}
+
 /**
  * Page-agnostic backend, shared by every web part (old and new).
  * Existing methods are reused unchanged by the still-live, un-forked web
@@ -55,7 +154,7 @@ export class Service implements IDataProvider {
       .getByTitle(QUICK_ACCESS_LIST)
       .items.filter(`PageId eq '${this.escapeODataString(pageId)}'`)
       .orderBy('SortOrder', true)();
-    return items.map(this.mapQuickAccessItem);
+    return (items as IRawQuickAccessItem[]).map((i) => this.mapQuickAccessItem(i));
   }
 
   public async addQuickAccessItem(item: Partial<IQuickAccessItem>): Promise<IQuickAccessItem> {
@@ -66,7 +165,7 @@ export class Service implements IDataProvider {
       SortOrder: item.SortOrder,
       PageId: item.PageId
     });
-    return this.mapQuickAccessItem(result);
+    return this.mapQuickAccessItem(result.data as IRawQuickAccessItem);
   }
 
   public async updateQuickAccessItem(id: number, item: Partial<IQuickAccessItem>): Promise<void> {
@@ -87,7 +186,7 @@ export class Service implements IDataProvider {
       .getByTitle(CAROUSEL_LIST)
       .items.filter(`PageId eq '${this.escapeODataString(pageId)}'`)
       .orderBy('SortOrder', true)();
-    return items.map((i: any) => ({
+    return (items as IRawCarouselItem[]).map((i) => ({
       Id: i.Id,
       Title: i.Title,
       Description: i.Description,
@@ -104,7 +203,7 @@ export class Service implements IDataProvider {
       .getByTitle(HORIZONTAL_CARDS_LIST)
       .items.filter(`PageId eq '${this.escapeODataString(pageId)}'`)
       .orderBy('SortOrder', true)();
-    return items.map((i: any) => ({
+    return (items as IRawHorizontalCard[]).map((i) => ({
       Id: i.Id,
       Title: i.Title,
       Description: i.Description,
@@ -120,7 +219,7 @@ export class Service implements IDataProvider {
       .getByTitle(ANNOUNCEMENTS_LIST)
       .items.filter(`PageId eq '${this.escapeODataString(pageId)}'`)
       .orderBy('PublishDate', false)();
-    return items.map((i: any) => ({
+    return (items as IRawAnnouncement[]).map((i) => ({
       Id: i.Id,
       Title: i.Title,
       Body: i.Body,
@@ -135,7 +234,7 @@ export class Service implements IDataProvider {
       .getByTitle(EVENTS_LIST)
       .items.filter(`PageId eq '${this.escapeODataString(pageId)}'`)
       .orderBy('StartDate', true)();
-    return items.map((i: any) => ({
+    return (items as IRawUpcomingEvent[]).map((i) => ({
       Id: i.Id,
       Title: i.Title,
       StartDate: i.StartDate,
@@ -154,7 +253,7 @@ export class Service implements IDataProvider {
     if (!items.length) {
       return undefined;
     }
-    const i: any = items[0];
+    const i = items[0] as IRawExecutiveMessage;
     return {
       Id: i.Id,
       ExecutiveName: i.ExecutiveName,
@@ -168,7 +267,7 @@ export class Service implements IDataProvider {
   /** Legacy flat-folder listing. Left untouched per Task C instructions. */
   public async getPhotoGalleryImages(): Promise<IPhotoGalleryImage[]> {
     const files = await this.sp.web.getFolderByServerRelativePath(PHOTO_GALLERY_LIBRARY).files();
-    return files.map((f: any) => ({
+    return (files as IRawFile[]).map((f) => ({
       Name: f.Name,
       ServerRelativeUrl: f.ServerRelativeUrl,
       TimeCreated: f.TimeCreated
@@ -181,7 +280,7 @@ export class Service implements IDataProvider {
 
   public async getLatestPhotoAlbums(count: number): Promise<IPhotoAlbum[]> {
     const rootFolder = this.sp.web.getFolderByServerRelativePath(PHOTO_ALBUMS_LIBRARY);
-    const subFolders: any[] = await rootFolder.folders();
+    const subFolders: IRawFolder[] = await rootFolder.folders();
 
     // Loose files sitting outside any album folder are irrelevant here -
     // rootFolder.folders() already returns only subfolders, never files.
@@ -205,8 +304,8 @@ export class Service implements IDataProvider {
   }
 
   public async getPhotoAlbumImages(albumServerRelativeUrl: string): Promise<IPhotoAlbum> {
-    const folder = await this.sp.web.getFolderByServerRelativePath(albumServerRelativeUrl)();
-    const files: any[] = await this.sp.web.getFolderByServerRelativePath(albumServerRelativeUrl).files();
+    const folder: IRawFolder = await this.sp.web.getFolderByServerRelativePath(albumServerRelativeUrl)();
+    const files: IRawFile[] = await this.sp.web.getFolderByServerRelativePath(albumServerRelativeUrl).files();
     const images = files
       .filter((f) => this.isImageFile(f.Name))
       .map((f) => ({ Name: f.Name, ServerRelativeUrl: f.ServerRelativeUrl }));
@@ -221,7 +320,7 @@ export class Service implements IDataProvider {
 
   /** Case-insensitive match against "cover.jpg" - confirmed both "Cover.jpg" and "cover.jpg" exist in the live tenant. */
   private async findCoverImageUrl(albumServerRelativeUrl: string): Promise<string> {
-    const files: any[] = await this.sp.web.getFolderByServerRelativePath(albumServerRelativeUrl).files();
+    const files: IRawFile[] = await this.sp.web.getFolderByServerRelativePath(albumServerRelativeUrl).files();
     const cover = files.filter((f) => f.Name.toLowerCase() === 'cover.jpg')[0];
     if (cover) {
       return cover.ServerRelativeUrl;
@@ -250,32 +349,32 @@ export class Service implements IDataProvider {
       `LeaveTo ge datetime'${today}'`
     ].join(' and ');
 
-    const items = await this.sp.web.lists
+    const items: IRawDelegationRecord[] = await this.sp.web.lists
       .getByTitle(DELEGATION_LIST)
       .items.filter(filter)
       .orderBy('SortOrder', true)();
 
-    return items.map(this.mapDelegationRecord);
+    return items.map((i) => this.mapDelegationRecord(i));
   }
 
   public async getDelegationById(id: number): Promise<IDelegationRecord | undefined> {
     try {
-      const i = await this.sp.web.lists.getByTitle(DELEGATION_LIST).items.getById(id)();
+      const i: IRawDelegationRecord = await this.sp.web.lists.getByTitle(DELEGATION_LIST).items.getById(id)();
       return this.mapDelegationRecord(i);
     } catch {
       return undefined;
     }
   }
 
-  private mapDelegationRecord(i: any): IDelegationRecord {
+  private mapDelegationRecord(i: IRawDelegationRecord): IDelegationRecord {
     return {
       Id: i.Id,
       Title: i.Title,
-      EmployeeName: i.Employee ? i.Employee.Title : i.EmployeeName,
+      EmployeeName: i.Employee ? i.Employee.Title : i.EmployeeName || '',
       EmployeeEmail: i.Employee ? i.Employee.EMail : '',
       Designation: i.Designation,
       Department: i.Department,
-      DelegateName: i.Delegate ? i.Delegate.Title : i.DelegateName,
+      DelegateName: i.Delegate ? i.Delegate.Title : i.DelegateName || '',
       DelegateEmail: i.Delegate ? i.Delegate.EMail : '',
       DelegateDesignation: i.DelegateDesignation,
       LeaveFrom: i.LeaveFrom,
@@ -305,7 +404,7 @@ export class Service implements IDataProvider {
       .getByTitle(PERSONAL_QUICK_ACCESS_LIST)
       .items.filter(`OwnerKey eq '${this.escapeODataString(ownerKey)}'`)
       .orderBy('SortOrder', true)();
-    return items.map(this.mapPersonalQuickAccessItem);
+    return (items as IRawPersonalQuickAccessItem[]).map((i) => this.mapPersonalQuickAccessItem(i));
   }
 
   public async addPersonalQuickAccessItem(item: Partial<IPersonalQuickAccessItem>): Promise<IPersonalQuickAccessItem> {
@@ -332,7 +431,7 @@ export class Service implements IDataProvider {
       OwnerId: currentUser.Id,
       OwnerKey: ownerKey
     });
-    return this.mapPersonalQuickAccessItem(result);
+    return this.mapPersonalQuickAccessItem(result.data as IRawPersonalQuickAccessItem);
   }
 
   public async updatePersonalQuickAccessItem(id: number, item: Partial<IPersonalQuickAccessItem>): Promise<void> {
@@ -364,7 +463,7 @@ export class Service implements IDataProvider {
     return user.LoginName;
   }
 
-  private mapPersonalQuickAccessItem(i: any): IPersonalQuickAccessItem {
+  private mapPersonalQuickAccessItem(i: IRawPersonalQuickAccessItem): IPersonalQuickAccessItem {
     return {
       Id: i.Id,
       Title: i.Title,
@@ -375,7 +474,7 @@ export class Service implements IDataProvider {
     };
   }
 
-  private mapQuickAccessItem(i: any): IQuickAccessItem {
+  private mapQuickAccessItem(i: IRawQuickAccessItem): IQuickAccessItem {
     return {
       Id: i.Id,
       Title: i.Title,
