@@ -1,0 +1,72 @@
+[
+ {
+  "id": "v1",
+  "text": "Central Doha. February, twenty ten.",
+  "sub": "Central Doha. February 2010.",
+  "voice": "bm_george",
+  "speed": 0.92
+ },
+ {
+  "id": "v2",
+  "text": "Thirty-one hectares, beside Sook Waakif.",
+  "sub": "31 hectares, beside Souq Waqif.",
+  "voice": "bm_george",
+  "speed": 0.92
+ },
+ {
+  "id": "v3",
+  "text": "Construction began here in January, twenty ten.",
+  "sub": "Construction began here in January 2010.",
+  "voice": "bm_george",
+  "speed": 0.95
+ },
+ {
+  "id": "v4",
+  "text": "By twenty thirteen, the old quarter is gone.",
+  "sub": "By 2013, the old quarter is gone.",
+  "voice": "bm_george",
+  "speed": 0.92
+ },
+ {
+  "id": "v5",
+  "text": "One excavation fills the site.",
+  "sub": "One excavation fills the site.",
+  "voice": "bm_george",
+  "speed": 0.92
+ },
+ {
+  "id": "v6",
+  "text": "October, twenty fifteen. Four restored houses open as museums.",
+  "sub": "October 2015. Four restored houses open as museums.",
+  "voice": "bm_george",
+  "speed": 0.98
+ },
+ {
+  "id": "v7",
+  "text": "May, twenty nineteen. The metro opens beneath it.",
+  "sub": "May 2019. The metro opens beneath it.",
+  "voice": "bm_george",
+  "speed": 0.95
+ },
+ {
+  "id": "v8",
+  "text": "The network's largest station.",
+  "sub": "The network's largest station.",
+  "voice": "bm_george",
+  "speed": 0.95
+ },
+ {
+  "id": "v9",
+  "text": "Ten years. A new district, on the same ground.",
+  "sub": "Ten years. A new district, on the same ground.",
+  "voice": "bm_george",
+  "speed": 0.9
+ },
+ {
+  "id": "v10",
+  "text": "Mushayrib, Doha.",
+  "sub": "Msheireb, Doha.",
+  "voice": "bm_george",
+  "speed": 0.9
+ }
+]

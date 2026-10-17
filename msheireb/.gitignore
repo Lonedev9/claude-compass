@@ -1,0 +1,7 @@
+cache/
+.venv/
+out/
+stills/
+qa/
+__pycache__/
+plates/

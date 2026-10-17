@@ -1,0 +1,22 @@
+Msheireb, 2010–2020 — third-party material in the film
+
+IMAGERY
+- Landsat 7 ETM+ and Landsat 8 OLI/TIRS Collection 1 Level-1 data, courtesy of the U.S. Geological Survey / NASA.
+  Public domain (USGS data has no copyright restrictions; credit requested). Accessed through the Google Cloud
+  Public Datasets copy of the archive (gcp-public-data-landsat). Every scene used is listed in tools/scenes.txt,
+  tools/region_scenes.txt and cache/requests.log. The credit "Imagery: Landsat 7 / Landsat 8, USGS / NASA" is burned
+  into the picture.
+
+FONTS (SIL Open Font License 1.1, self-hosted in fonts/)
+- Barlow Condensed — Jeremy Tribby. fonts/OFL-barlow.txt. https://github.com/google/fonts/tree/main/ofl/barlowcondensed
+- IBM Plex Mono, IBM Plex Sans — IBM Corp. fonts/OFL-ibmplex.txt. https://github.com/google/fonts/tree/main/ofl/ibmplexmono
+
+VOICE
+- Narration synthesised with Kokoro-82M (Apache-2.0, https://github.com/hexgrad/kokoro) through kokoro-onnx
+  (MIT, https://github.com/thewh1teagle/kokoro-onnx), voice "bm_george".
+
+MUSIC AND SOUND
+- All score and sound effects were synthesised for this film in mix.py (numpy/scipy). No samples or recordings.
+
+CODE
+- Camera and overlay helpers adapted from the Satellite Briefing style of the Lemo-Opuscar library (MIT).
