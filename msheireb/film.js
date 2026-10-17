@@ -20,8 +20,8 @@ const KEYS = [
   { t: T.push0, ll: G.site, d: 3.05, tilt: 0, hd: -3, sx: -230, sy: -10, e: 'lin' },             // locked frame, slow creep and turn
   { t: T.turn, ll: G.site, d: 2.15, tilt: 0, hd: -4, sx: -250, sy: -20, e: 'io' },               // push-in through 2019
   { t: T.climb0, ll: G.site, d: 1.95, tilt: 0, hd: -4.5, sx: -250, sy: -20, e: 'lin' },
-  { t: T.climb1, ll: G.site, d: 235, tilt: 28, hd: 8, sx: 280, sy: 60, e: 'climb' },       // climb to the peninsula
-  { t: T.dur, ll: G.site, d: 262, tilt: 31, hd: 10, sx: 300, sy: 60, e: 'lin' },
+  { t: T.climb1, ll: G.site, d: 170, tilt: 26, hd: 8, sx: 260, sy: 60, e: 'climb' },       // climb to the peninsula
+  { t: T.dur, ll: G.site, d: 188, tilt: 28, hd: 10, sx: 270, sy: 60, e: 'lin' },
 ];
 const EASE = { io: eio, lin: t => t, climb: t => ss(Math.pow(t, 0.8)) };
 function camAt(t) {
@@ -177,7 +177,9 @@ function drawInstruments(t, cam, alt) {
   const rep = (run.find(([a0, a1]) => t >= a0 && t < a1) || [])[2] ?? String(ys.y);
   text(ctx, String(ys.y), 96, 132, { font: '300 84px BC', alpha: a, id: 'date-year', rep, track: 1 });
   text(ctx, ys.sensor, 100, 172, { font: '400 24px PM', alpha: a * 0.92, id: 'date-sensor' });
-  text(ctx, ys.when, 100, 204, { font: '400 22px PM', alpha: a * 0.75, rep: null });
+  // once the climb leaves the 12 km site plates, the ground is the 2020 Qatar mosaic (three dates)
+  const mosaic = alt > 14;
+  text(ctx, mosaic ? 'JAN–MAR 2020 MOSAIC' : ys.when, 100, 204, { font: '400 22px PM', alpha: a * 0.75, rep: null });
   // altitude, top right
   const km = alt;
   const s = km < 10 ? `ALT ${km.toFixed(1)} km` : `ALT ${Math.round(km)} km`;

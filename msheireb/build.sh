@@ -27,6 +27,6 @@ node core/render/events.mjs "$HERE"
 node core/render/readcheck.mjs "$HERE" > "$HERE/out/readcheck.txt"
 node core/render/video.mjs "$HERE" --fps 24 --workers 4 --out "$HERE/out/video.mp4"
 "$PY" "$HERE/mix.py"
-sh core/render/mux.sh "$HERE/out/video.mp4" "$HERE/out/mix.wav" "$HERE/msheireb.mp4" 24 2
+sh "$HERE/tools/master.sh" "$HERE/out/video.mp4" "$HERE/out/mix.wav" "$HERE/msheireb.mp4"
 ffmpeg -loglevel error -y -ss 42.5 -i "$HERE/msheireb.mp4" -frames:v 1 -q:v 2 "$HERE/poster.jpg"
 echo "done: $HERE/msheireb.mp4"

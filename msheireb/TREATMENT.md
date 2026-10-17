@@ -96,3 +96,19 @@ Two silences: 18.5 (before 2013) and 39.6 (before 2020). J-cut: city wind comes 
 - Landsat 7 ETM+ (2010–12, SLC-off: two to four same-year dates composited) and Landsat 8 OLI (2013–20), pan-sharpened to 15 m. All from the USGS archive via Google Cloud public data.
 - The outline was traced by hand on the 2020 and 2013 plates (32.2 ha). The published figure is 31 ha. Both appear on screen.
 - No building is drawn. Dates come from public sources (FACTS.md).
+
+## 10. Compared with the style's demo (read after this treatment was written)
+
+| | Demo | This film | Differs |
+|---|---|---|---|
+| Structure | claim map → check → rings → range line → whip pan → climb | one locked frame, eleven dated scans, then a climb | yes |
+| Opening | oblique orbit with the Earth's limb, dive into a printed map | black frame painted in by a scan at 5 km | yes |
+| Signature shot | shoreline rings printed in a locked orbit frame | colour returning only inside the outline in 2020, after a silence | yes |
+| Camera path | dive, orbit, push, whip pan, climb | creep and push at 2–5 km, one climb to ~190 km | mostly |
+| Score shape | D minor → D major, sampled orchestra, glass harp | fully synthesised; A minor pulse, ticks subdividing, bowed metal at the turn | yes |
+| Ending | the reticle opens into an end card | the reticle closes onto one point on the peninsula, no card | yes |
+
+## 11. Production notes
+
+- Speech check skipped: no offline speech-to-text model (Whisper on Hugging Face) could be reached from the build machine. Place names are respelled for the narrator ("Sook Waakif", "Mushayrib"), and subtitles use the real spellings.
+- `core/render/mux.sh` was replaced by `tools/master.sh`. The library's decode-length check stopped about 3 s early on this mix, which it read as a truncated file.
